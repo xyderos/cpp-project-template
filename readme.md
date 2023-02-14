@@ -37,8 +37,7 @@
 
 5) The weird Makefile
 
-* Although the __makefile__ is structured in a weird way eg traversing all the files upon each build, which makes it not suitable for big projects, it does remind of an abstration and thus making it easier to extend it (although currently only a flat structure is supported, not tested with nested folders)
-* Simply add in each __object section__ the name of the file you added in the directory as an object, the makefile should resolve it
+* Although the __makefile__ is structured in a weird way eg traversing all the files upon each build, which makes it not suitable for big projects, it does remind of an abstration and thus making it easier to extend it
 * It can distinguish the __production__ and __development__ env variables
 * __memory check__ with build the library, tests, run them and also generate a __Valgrind__ report  
 
