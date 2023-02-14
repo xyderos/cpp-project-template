@@ -18,14 +18,14 @@ HEADER_SUFFIX := .h
 LIB := libmod.so
 LIBRARY_SOURCE_DIRECTORY := src
 LIBRARY_OBJECTS_DIRECTORY := temp_obj_directory
-LIBRARY_OBJECTS :=$(addprefix $(LIBRARY_OBJECTS_DIRECTORY)/, addition.o)
+LIBRARY_OBJECTS :=$(addprefix $(LIBRARY_OBJECTS_DIRECTORY)/, addition/addition.o multiplication/multiplication.o)
 SHARED := -shared
 
 # tests
 TEST := executable
 TESTS_SOURCE_DIRECTORY:= tests
 TESTS_DIRECTORY_OBJECTS := temp_test_obj_directory
-TOBJS :=$(addprefix $(TESTS_DIRECTORY_OBJECTS)/, test_addition.o driver.o)
+TOBJS :=$(addprefix $(TESTS_DIRECTORY_OBJECTS)/, test_addition/test_addition.o test_multiplication/test_multiplication.o driver.o)
 LIBS := -lcppunit $(LIB)
 
 MEM_CHECK_FILE := valgrind_results.txt
@@ -43,8 +43,9 @@ $(LIBRARY_OBJECTS_DIRECTORY)/%.o: $(LIBRARY_SOURCE_DIRECTORY)/%$(SOURCE_FILES_SU
 
 # make temporary directory for the library objects
 lib_obj_dirs:
-	mkdir -p $(LIBRARY_OBJECTS_DIRECTORY)
-
+	cp -R --attributes-only ./$(LIBRARY_SOURCE_DIRECTORY)/ ./$(LIBRARY_OBJECTS_DIRECTORY)
+	find ./$(LIBRARY_OBJECTS_DIRECTORY) -type f -exec rm {} \;
+	
 # build the tests
 test: clean $(LIB) $(TEST)
 
@@ -58,7 +59,8 @@ $(TESTS_DIRECTORY_OBJECTS)/%.o: $(TESTS_SOURCE_DIRECTORY)/%$(SOURCE_FILES_SUFFIX
 
 # make temporary directory for the test objects
 test_lib_dirs:
-	mkdir -p $(TESTS_DIRECTORY_OBJECTS);
+	cp -R --attributes-only ./$(TESTS_SOURCE_DIRECTORY)/ ./$(TESTS_DIRECTORY_OBJECTS)
+	find ./$(TESTS_DIRECTORY_OBJECTS) -type f -exec rm {} \;
 
 clean:
 	rm -f *~ *.o $(LIB) $(TEST) $(MEM_CHECK_FILE)
