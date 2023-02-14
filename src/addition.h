@@ -1,7 +1,6 @@
 #pragma once
 
-class addition
-{
+class addition {
     public:
-    static int add(int,int);
+	static int add(int, int);
 };

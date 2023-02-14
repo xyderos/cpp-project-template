@@ -8,8 +8,8 @@ class test_addition : public CPPUNIT_NS::TestCase {
 	CPPUNIT_TEST_SUITE_END();
 
     public:
-	void setUp() override{} 
-	void tearDown() override {}
+	void setUp() override { }
+	void tearDown() override { }
 
     protected:
 	void test_addition_should_return_the_sum();
