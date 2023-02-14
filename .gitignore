@@ -1,0 +1,4 @@
+/executable
+/libmod.so
+temp_obj_dir/
+temp_test_obj_directory/
