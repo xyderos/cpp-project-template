@@ -31,6 +31,7 @@ jobs:
       
       - name: Check for memory leaks
         run: make memory_check
+      
       - name: Upload valgrind results
         uses: actions/upload-artifact@v3
         with:
@@ -48,8 +49,3 @@ jobs:
         with:
           name: libmod.so
           path: ./libmod.so
-      - name: Upload valgrind results
-        uses: actions/upload-artifact@v3
-        with:
-          name: valgrind_results.txt
-          path: ./valgrind_results.txt
