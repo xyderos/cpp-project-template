@@ -7,7 +7,7 @@
         "type": "shell",
         "command": "make",
         "args": [
-          "test"
+          "memory_check"
         ],
         "group": {
           "kind": "build",

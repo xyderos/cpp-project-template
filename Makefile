@@ -13,12 +13,13 @@ endif
 # language specific
 SOURCE_FILES_SUFFIX := .cpp
 HEADER_SUFFIX := .h
+OBJECT_SUFFIX := .o
 
 # source
 NAME_OF_THE_LIBRARY := libmod.so
 NAME_OF_SOURCE_CODE_FOR_THE_LIBRARY := src
 NAME_OF_THE_OBJECTS_OF_THE_LIBRARY := temp_obj_directory
-OBJECT_FILES_OF_SOURCE_WITHOUT_PREFIX := $(patsubst %.cpp,%.o,$(patsubst %.h,%.o,$(shell find ./src/ -type f -name "*.h")))
+OBJECT_FILES_OF_SOURCE_WITHOUT_PREFIX := $(patsubst %$(SOURCE_FILES_SUFFIX),%$(OBJECT_SUFFIX),$(patsubst %$(HEADER_SUFFIX),%$(OBJECT_SUFFIX),$(shell find ./src/ -type f -name "*$(HEADER_SUFFIX)")))
 OBJECT_FILES_OF_SOURCE_WITH_PREFIX := $(foreach F,$(OBJECT_FILES_OF_SOURCE_WITHOUT_PREFIX),$(lastword $(subst ./src/, ,$F)))
 LIBRARY_OBJECTS := $(addprefix $(NAME_OF_THE_OBJECTS_OF_THE_LIBRARY)/, $(OBJECT_FILES_OF_SOURCE_WITH_PREFIX))
 SHARED := -shared
@@ -27,7 +28,7 @@ SHARED := -shared
 NAME_OF_TEST_EXECUTABLE := executable
 NAME_OF_SOURCE_CODE_FOR_TESTS:= tests
 NAME_OF_THE_OBJECTS_OF_THE_TESTS := temp_test_obj_directory
-OBJECT_FILES_OF_TESTS_WITHOUT_PREFIX := $(patsubst %.cpp,%.o,$(patsubst %.h,%.o,$(shell find ./tests/ -type f -name "*.h")))
+OBJECT_FILES_OF_TESTS_WITHOUT_PREFIX := $(patsubst %$(SOURCE_FILES_SUFFIX),%$(OBJECT_SUFFIX),$(patsubst %$(HEADER_SUFFIX),%$(OBJECT_SUFFIX),$(shell find ./tests/ -type f -name "*$(HEADER_SUFFIX)")))
 OBJECT_FILES_OF_TESTS_WITH_PREFIX := $(foreach F,$(OBJECT_FILES_OF_TESTS_WITHOUT_PREFIX),$(lastword $(subst ./tests/, ,$F)))
 TEST_OBJECTS :=$(addprefix $(NAME_OF_THE_OBJECTS_OF_THE_TESTS)/, $(OBJECT_FILES_OF_TESTS_WITH_PREFIX))
 LIBS := -lcppunit $(NAME_OF_THE_LIBRARY)
